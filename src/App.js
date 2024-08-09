@@ -89,8 +89,9 @@ function App() {
             operatorClick={operatorClick}
             handleClick={handleClick}
             handleEqual={handleEqual}
+            clear={clear}
+            backspace={backspace}
           />
-          <p className="text-white">Created by Abdur Rehman</p>
         </div>
       </div>
     </>

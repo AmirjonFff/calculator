@@ -1,29 +1,31 @@
 import React from "react";
 import Button from "./Button";
 
-function ButtonsContainer({ handleClick, operatorClick, handleEqual }) {
+function ButtonsContainer({ handleClick, operatorClick, handleEqual, clear, backspace }) {
   return (
     <div className="btn-wrapper">
       <div className="btn-container">
-        <Button handleClick={handleClick} name={1} value={1} />
-        <Button handleClick={handleClick} name={2} value={2} />
-        <Button handleClick={handleClick} name={3} value={3} />
+        <Button handleClick={handleClick} name={2} value={'^'} />
+        <Button handleClick={handleClick} name={3} value={'sqr'} />
         <Button
-          handleClick={() => operatorClick("+")}
+          handleClick={() => clear()}
           className="colored-btn"
           name={"+"}
-          value={"+"}
+          value={"AC"}
         />
+        <button onClick={backspace} className="AC-btn colored-btn">
+          <i className="material-icons">backspace</i>
+        </button>
       </div>
       <div className="btn-container">
-        <Button handleClick={handleClick} name={4} value={4} />
-        <Button handleClick={handleClick} name={5} value={5} />
-        <Button handleClick={handleClick} name={6} value={6} />
+        <Button handleClick={handleClick} name={1} value={'('} />
+        <Button handleClick={handleClick} name={2} value={')'} />
+        <Button handleClick={handleClick} name={1} value={'%'} />
         <Button
-          handleClick={() => operatorClick("-")}
+          handleClick={() => operatorClick("/")}
           className="colored-btn"
-          name={"-"}
-          value={"-"}
+          name={"/"}
+          value={"/"}
         />
       </div>
       <div className="btn-container">
@@ -38,18 +40,36 @@ function ButtonsContainer({ handleClick, operatorClick, handleEqual }) {
         />
       </div>
       <div className="btn-container">
-        <Button handleClick={handleClick} name={0} value={0} />
+        <Button handleClick={handleClick} name={4} value={4} />
+        <Button handleClick={handleClick} name={5} value={5} />
+        <Button handleClick={handleClick} name={6} value={6} />
         <Button
-          className="span-two colored-btn"
+          handleClick={() => operatorClick("-")}
+          className="colored-btn"
+          name={"-"}
+          value={"-"}
+        />
+      </div>
+      <div className="btn-container">
+        <Button handleClick={handleClick} name={1} value={1} />
+        <Button handleClick={handleClick} name={2} value={2} />
+        <Button handleClick={handleClick} name={3} value={3} />
+        <Button
+          handleClick={() => operatorClick("+")}
+          className="colored-btn"
+          name={"+"}
+          value={"+"}
+        />
+      </div>
+      <div className="btn-container">
+        <Button handleClick={handleClick} name={0} value={0} />
+        <Button handleClick={handleClick} name={0} value={'00'} />
+        <Button handleClick={handleClick} name={0} value={','} />
+        <Button
+          className="colored-btn"
           handleClick={handleEqual}
           name={"="}
           value={"="}
-        />
-        <Button
-          handleClick={() => operatorClick("/")}
-          className="colored-btn"
-          name={"/"}
-          value={"/"}
         />
       </div>
     </div>
