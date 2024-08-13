@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { evaluate } from 'mathjs';
 import ButtonsContainer from "./components/ButtonsContainer";
 import DisplayContainer from "./components/DisplayContainer";
 import "./styles.css";
@@ -13,10 +14,8 @@ function App() {
   }
 
   function operatorClick(operator) {
-    let lastCharacter = display.slice(-2);
-    let operatorsArray = ["+ ", "- ", "* ", "/ "];
-
-    console.log(lastCharacter);
+    let lastCharacter = display?.toString().slice(-2);
+    let operatorsArray = ["+ ", "- ", "* ", "/ ", "% "];
 
     if (display === "" || operatorsArray.includes(lastCharacter)) return;
 
@@ -26,44 +25,19 @@ function App() {
   }
 
   function handleEqual() {
-    if (display.slice(-2).includes("+ ", "- ", "* ", "/ ")) return;
-
-    setDisplay("");
+    if (display?.toString().slice(-2).includes("+ ", "- ", "* ", "/ ")) return;
 
     try {
       const resultValue = calculate(display);
-      setResult(resultValue);
+      setResult(display)
+      setDisplay(resultValue);
     } catch (error) {
       setDisplay("Error");
     }
   }
 
   function calculate(expression) {
-    const tokens = expression.split(" ");
-    let resultValue = parseInt(tokens[0]);
-
-    for (let i = 1; i < tokens.length; i += 2) {
-      const operator = tokens[i];
-      const nextNumber = parseInt(tokens[i + 1]);
-
-      switch (operator) {
-        case "+":
-          resultValue += nextNumber;
-          break;
-        case "-":
-          resultValue -= nextNumber;
-          break;
-        case "*":
-          resultValue *= nextNumber;
-          break;
-        case "/":
-          resultValue /= nextNumber;
-          break;
-        default:
-          resultValue = "Error";
-      }
-    }
-    return resultValue;
+    return evaluate(expression)
   }
 
   function clear() {
@@ -72,9 +46,12 @@ function App() {
   }
 
   function backspace() {
+    if (display.slice(-1) === " ") {
+      setDisplay(display.slice(0, -2));
+      return;
+    }
     setDisplay(display.slice(0, -1));
   }
-
   return (
     <>
       <div className="container">
