@@ -14,7 +14,7 @@ function App() {
   }
 
   function operatorClick(operator) {
-    let lastCharacter = display?.toString().slice(-2);
+    let lastCharacter = display.toString().slice(-2);
     let operatorsArray = ["+ ", "- ", "* ", "/ ", "% "];
 
     if (display === "" || operatorsArray.includes(lastCharacter)) return;
