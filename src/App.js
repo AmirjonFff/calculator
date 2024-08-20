@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { evaluate } from 'mathjs';
+import { evaluate, re } from 'mathjs';
 import ButtonsContainer from "./components/ButtonsContainer";
 import DisplayContainer from "./components/DisplayContainer";
 import "./styles.css";
@@ -9,6 +9,12 @@ function App() {
   const [result, setResult] = useState("");
 
   function handleClick(e) {
+    if (result) {
+      const calresult = result.includes('=') ? result.slice(0, -1) : result
+      console.log(calresult);
+
+      setResult(calresult.toString().includes("+ ", "- ", "* ", "/ ") ? calculate(calresult) : calresult)
+    }
     const targetValue = e.target.name;
     setDisplay(display + targetValue);
   }
@@ -29,10 +35,10 @@ function App() {
 
     try {
       const resultValue = calculate(display);
-      setResult(display)
+      setResult(display + '=')
       setDisplay(resultValue);
-    } catch (error) {
-      setDisplay("Error");
+    } catch (e) {
+      // setDisplay("Error");
     }
   }
 
