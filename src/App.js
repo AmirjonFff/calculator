@@ -11,7 +11,10 @@ function App() {
   function handleClick(e) {
     if (result) {
       const calresult = result.toString().slice(-1) == '=' ? result.slice(0, -1) : result
-      setResult(calresult.toString().includes(" ") ? '=' + calculate(calresult) : calresult)
+      if (calresult.toString().includes(" ")) {
+        setResult('=' + calculate(calresult))
+        setDisplay('')
+      }
     }
 
     const targetValue = e.target.name;
@@ -19,6 +22,11 @@ function App() {
   }
 
   function operatorClick(operator) {
+    if (result) {
+      const calresult = result.toString().slice(-1) == '=' ? result.slice(0, -1) : result
+      setResult(calresult.toString().includes(" ") ? '=' + calculate(calresult) : calresult)
+    }
+
     let lastCharacter = display.toString().slice(-2);
     let operatorsArray = ["+ ", "- ", "* ", "/ ", "% "];
 
