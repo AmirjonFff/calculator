@@ -10,11 +10,10 @@ function App() {
 
   function handleClick(e) {
     if (result) {
-      const calresult = result.includes('=') ? result.slice(0, -1) : result
-      console.log(calresult);
-
-      setResult(calresult.toString().includes("+ ", "- ", "* ", "/ ") ? calculate(calresult) : calresult)
+      const calresult = result.toString().slice(-1) == '=' ? result.slice(0, -1) : result
+      setResult(calresult.toString().includes(" ") ? '=' + calculate(calresult) : calresult)
     }
+
     const targetValue = e.target.name;
     setDisplay(display + targetValue);
   }
