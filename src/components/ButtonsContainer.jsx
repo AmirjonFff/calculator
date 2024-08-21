@@ -6,7 +6,7 @@ function ButtonsContainer({ handleClick, operatorClick, handleEqual, clear, back
     <div className="btn-wrapper">
       <div className="btn-container">
         <Button handleClick={() => operatorClick("^")} className={'btn'} name={'^'} value={'^'} />
-        <Button handleClick={handleClick} className={'btn'} name={3} value={'sqr'} />
+        <Button handleClick={handleClick} className={'btn'} name={'sqrt('} value={'sqr'} />
         <Button
           handleClick={() => clear()}
           className="btn"

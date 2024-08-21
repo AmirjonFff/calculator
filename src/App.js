@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { evaluate, re } from 'mathjs';
+import { evaluate } from 'mathjs';
 import ButtonsContainer from "./components/ButtonsContainer";
 import DisplayContainer from "./components/DisplayContainer";
 import "./styles.css";
@@ -10,10 +10,12 @@ function App() {
 
   function handleClick(e) {
     if (result) {
-      const calresult = result.toString().slice(-1) == '=' ? result.slice(0, -1) : result
+      const calresult = result.toString().slice(-1) === '=' ? result.slice(0, -1) : result
       if (calresult.toString().includes(" ")) {
         setResult('=' + calculate(calresult))
-        setDisplay('')
+        const targetValue = e.target.name;
+        setDisplay(targetValue);
+        return
       }
     }
 
@@ -23,8 +25,19 @@ function App() {
 
   function operatorClick(operator) {
     if (result) {
-      const calresult = result.toString().slice(-1) == '=' ? result.slice(0, -1) : result
+      const calresult = result.toString().slice(-1) === '=' ? result.slice(0, -1) : result
       setResult(calresult.toString().includes(" ") ? '=' + calculate(calresult) : calresult)
+    }
+
+    if (operator === "%") {
+      if (display.toString().includes(' ')) {
+        const procentNumber = display.slice(display.lastIndexOf(' ')) / 100;
+        const displeyNumber = display.slice(0, display.lastIndexOf(' ')) + ' ' + procentNumber;
+        setDisplay(displeyNumber)
+        return
+      }
+      setDisplay(display / 100)
+      return
     }
 
     let lastCharacter = display.toString().slice(-2);
